@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFW Gaben</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        img, iframe {
+            max-width: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background music - Replace 'audio_file_path.mp3' with your actual audio file path -->
+    <!-- Note: Autoplaying audio might not work in all browsers due to autoplay policies -->
+    <audio autoplay loop hidden>
+        <source src="audio_file_path.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <img src="https://i.imgur.com/r9gahp8.jpeg" alt="Top Image">
+    <div class="video-container">
+        <img src="https://i.imgur.com/Dw6IVhi.gif" alt="Left GIF">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/6uN3dxJRnss?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <img src="https://i.imgur.com/Dw6IVhi.gif" alt="Right GIF">
+    </div>
+</body>
+</html>
