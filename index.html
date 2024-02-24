@@ -16,7 +16,7 @@
             color: #fff;
             text-align: center;
         }
-        .video-container {
+        .image-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,20 +26,49 @@
             max-width: 100%;
             border: none;
         }
+        #unmuteButton {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none; /* Hide button by default */
+        }
     </style>
 </head>
 <body>
-    <!-- Background music - Replace 'audio_file_path.mp3' with your actual audio file path -->
-    <!-- Note: Autoplaying audio might not work in all browsers due to autoplay policies -->
+    <!-- Background music -->
     <audio autoplay loop hidden>
-        <source src="audio_file_path.mp3" type="audio/mpeg">
+        <source src="triage_at_dawn.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     <img src="images/ourgabe.jpg" alt="Top Image">
-    <div class="video-container">
+    <div class="image-container">
         <img src="images/gaben.gif" alt="Left GIF">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/6uN3dxJRnss?autoplay=1&mute=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <img src="images/gordon.jpg" alt="Gordon Image">
         <img src="images/gaben.gif" alt="Right GIF">
     </div>
+    <button id="unmuteButton">Unmute Sound</button>
+    <script>
+        // Check if autoplay with sound is allowed
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const audio = document.querySelector('audio');
+            if (audio) {
+                // Play returns a promise
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Autoplay started!
+                    }).catch(error => {
+                        // Autoplay was prevented.
+                        // Show a "Play" button to let user start playback.
+                        document.getElementById('unmuteButton').style.display = 'block';
+                        document.getElementById('unmuteButton').onclick = function() {
+                            audio.play();
+                        };
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
