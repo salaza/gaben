@@ -26,49 +26,23 @@
             max-width: 100%;
             border: none;
         }
-        #unmuteButton {
-            margin-top: 20px;
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            display: none; /* Hide button by default */
+        /* Style to scale the specific image */
+        .gordon-image {
+            width: 50%; /* Scale the image to 50% of its original size */
         }
     </style>
 </head>
 <body>
-    <!-- Background music -->
     <audio autoplay loop hidden>
-        <source src="triage_at_dawn.mp3" type="audio/mpeg">
+        <source src="images/triage_at_dawn.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     <img src="images/ourgabe.jpg" alt="Top Image">
     <div class="image-container">
         <img src="images/gaben.gif" alt="Left GIF">
-        <img src="images/gordon.jpg" alt="Gordon Image">
+        <!-- Apply the scaling class to the Gordon image -->
+        <img src="images/gordon.jpg" alt="Gordon Image" class="gordon-image">
         <img src="images/gaben.gif" alt="Right GIF">
     </div>
-    <button id="unmuteButton">Unmute Sound</button>
-    <script>
-        // Check if autoplay with sound is allowed
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const audio = document.querySelector('audio');
-            if (audio) {
-                // Play returns a promise
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(_ => {
-                        // Autoplay started!
-                    }).catch(error => {
-                        // Autoplay was prevented.
-                        // Show a "Play" button to let user start playback.
-                        document.getElementById('unmuteButton').style.display = 'block';
-                        document.getElementById('unmuteButton').onclick = function() {
-                            audio.play();
-                        };
-                    });
-                }
-            }
-        });
-    </script>
 </body>
 </html>
