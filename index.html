@@ -17,20 +17,33 @@
         }
         #introGif {
             position: absolute;
-            width: 50%; /* Make the GIF 50% smaller */
-            height: 50%; /* Adjust height accordingly to maintain aspect ratio */
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto; /* Center the GIF */
+            top: 25%; left: 25%; /* Adjust to center the GIF */
+            width: 50vw; /* Use vw for scaling with viewport width */
+            height: 50vh; /* Use vh for scaling with viewport height */
             background: url('images/clueless-aware-first-frame.jpg') no-repeat center center;
             background-size: contain;
             z-index: 2;
+            opacity: 1;
+            transition: opacity 3s ease; /* Smooth transition for the fade effect */
             display: block; /* Initially visible */
         }
         #mainContent {
             display: none; /* Initially hidden */
+            opacity: 0; /* Start fully transparent */
+            transition: opacity 3s ease; /* Smooth transition for the fade effect */
+            width: 100%;
+            height: 100%;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%; /* Ensure container scales */
+        }
+        #mainContent img, .gordon-image { /* Apply responsive scaling to all images */
+            width: 50vw; /* Scale with viewport width */
+            max-width: 100%; /* Prevent images from scaling beyond their original size */
         }
     </style>
 </head>
@@ -43,10 +56,10 @@
         <source src="sounds/triage_at_dawn.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <img src="images/ourgabe.jpg" alt="Top Image">
-    <div class="image-container" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+    <img src="images/ourgabe.jpg" alt="Top Image" style="width: 50vw; max-width: 100%;">
+    <div class="image-container">
         <img src="images/gaben.gif" alt="Left GIF">
-        <img src="images/gordon.jpg" class="gordon-image" alt="Gordon Image" style="width: 50%;">
+        <img src="images/gordon.jpg" class="gordon-image" alt="Gordon Image">
         <img src="images/gaben.gif" alt="Right GIF">
     </div>
 </div>
@@ -54,20 +67,24 @@
 <button id="playButton" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: transparent; border: none; cursor: pointer; z-index: 3;"></button>
 
 <script>
-document.getElementById("playButton").onclick = function() {
-    // Change the intro GIF to the animated version and resize
+function handleFirstClick() {
     document.getElementById("introGif").style.backgroundImage = "url('images/clueless-aware.gif')";
-
+    document.getElementById("introGif").style.opacity = 0;
+    var mainContent = document.getElementById("mainContent");
+    mainContent.style.display = "block";
+    mainContent.style.opacity = 0;
+    
     setTimeout(function() {
-        // Show the main content after 3 seconds
-        document.getElementById("mainContent").style.display = "block";
-        // Play the background music
+        mainContent.style.opacity = 1;
         var audio = document.getElementById("backgroundMusic");
         audio.play();
-        // Hide the intro GIF
         document.getElementById("introGif").style.display = "none";
-    }, 3000); // 3000 milliseconds = 3 seconds
-};
+    }, 3000);
+
+    document.getElementById("playButton").removeEventListener("click", handleFirstClick);
+}
+
+document.getElementById("playButton").addEventListener("click", handleFirstClick);
 </script>
 
 </body>
