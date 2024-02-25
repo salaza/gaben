@@ -15,64 +15,59 @@
             text-align: center;
             overflow: hidden;
         }
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-        }
-        img {
-            max-width: 100%;
-            border: none;
-        }
-        .gordon-image {
-            width: 50%; /* Scale the image to 50% of its original size */
-        }
-        #playButton {
+        #introGif {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 50%; /* Make the GIF 50% smaller */
+            height: 50%; /* Adjust height accordingly to maintain aspect ratio */
             top: 0;
             left: 0;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 1;
+            right: 0;
+            bottom: 0;
+            margin: auto; /* Center the GIF */
+            background: url('images/clueless-aware-first-frame.jpg') no-repeat center center;
+            background-size: contain;
+            z-index: 2;
+            display: block; /* Initially visible */
+        }
+        #mainContent {
+            display: none; /* Initially hidden */
         }
     </style>
 </head>
 <body>
 
-<audio id="backgroundMusic" loop>
-    <source src="triage_at_dawn.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-<img src="images/ourgabe.jpg" alt="Top Image">
-<div class="image-container">
-    <img src="images/gaben.gif" alt="Left GIF">
-    <img src="images/gordon.jpg" class="gordon-image" alt="Gordon Image">
-    <img src="images/gaben.gif" alt="Right GIF">
+<div id="introGif"></div>
+
+<div id="mainContent">
+    <audio id="backgroundMusic" loop>
+        <source src="sounds/triage_at_dawn.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <img src="images/ourgabe.jpg" alt="Top Image">
+    <div class="image-container" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+        <img src="images/gaben.gif" alt="Left GIF">
+        <img src="images/gordon.jpg" class="gordon-image" alt="Gordon Image" style="width: 50%;">
+        <img src="images/gaben.gif" alt="Right GIF">
+    </div>
 </div>
-<button id="playButton" onclick="playAudio()"></button>
+
+<button id="playButton" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: transparent; border: none; cursor: pointer; z-index: 3;"></button>
 
 <script>
-function playAudio() {
-    var audio = document.getElementById("backgroundMusic");
-    audio.play().then(_ => {
-        // Once audio starts playing, remove the button to prevent further interaction
-        var button = document.getElementById("playButton");
-        button.style.display = 'none';
-    }).catch(error => {
-        console.error("Playback was prevented", error);
-    });
-}
+document.getElementById("playButton").onclick = function() {
+    // Change the intro GIF to the animated version and resize
+    document.getElementById("introGif").style.backgroundImage = "url('images/clueless-aware.gif')";
+
+    setTimeout(function() {
+        // Show the main content after 3 seconds
+        document.getElementById("mainContent").style.display = "block";
+        // Play the background music
+        var audio = document.getElementById("backgroundMusic");
+        audio.play();
+        // Hide the intro GIF
+        document.getElementById("introGif").style.display = "none";
+    }, 3000); // 3000 milliseconds = 3 seconds
+};
 </script>
 
 </body>
